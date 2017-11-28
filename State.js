@@ -6,21 +6,41 @@
 
  class State{
 
- 	"use strict";
+ 	//"use strict"
 
- 	var isLocked = false;
+ 	
 
  	// Takes normal JS Object as function argument.
- 	// Returns observable Object. 
+ 	// Returns observable Object.
+ 	 
+
  	static create(obj)
  	{
+ 		// Handle special case if null or undefined is passed.
+ 		if (obj==null || typeof obj != "object")
+ 			return false;
 
- 	}
+ 		var observer = {
 
- 	// Returns plain old JS Object.
- 	getState()
- 	{
-
+ 			isLocked:false,
+ 			lock:function()
+			{
+				if(!this.isLocked)
+					this.isLocked = true;
+			},
+			unlock:function()
+		 	{
+		 		if(this.isLocked)
+		 			this.isLocked = false;
+		 	},
+		 	// Returns plain old JS Object.
+		 	getState:function()
+		 	{
+		 		return this["core"];
+		 	}
+		};
+	    observer["core"]=obj;
+	    return observer;
  	}
 
  	// Appends property in the existing state (mutates the original state).
@@ -54,17 +74,5 @@
  	next(param,handle)
  	{
 
- 	}
-
- 	lock()
- 	{
- 		if(!isLocked)
- 			isLocked = true;
- 	}
-
- 	unlock()
- 	{
- 		if(isLocked)
- 			isLocked = false;
  	}
  }
