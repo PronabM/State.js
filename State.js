@@ -37,6 +37,48 @@
 		 	getState:function()
 		 	{
 		 		return this["core"];
+		 	},
+		 	create:function(property,opt)
+		 	{
+		 		var ret = this["core"];
+		 		if(opt!==undefined)
+		 		{
+		 			var props = property.split(".");
+			 		for (var i=0,len=props.length;i<len-1;i++)
+			 		{	
+			 			if(!ret[props[i]])
+			 				return false;
+			 			ret = ret[props[i]];
+			 		}
+		 			ret[props[props.length-1]]=opt;
+		 		}
+		 		else
+		 		{
+		 			for(var propt in property)
+		 			{
+		 				ret[propt]=property[propt];	
+		 			}
+		 		}
+
+		 	},
+		 	prop:function(property,value)
+		 	{
+		 		var props = property.split(".");
+		 		var ret = this["core"];
+		 		for (var i=0,len=props.length;i<len-1;i++)
+		 		{	
+		 			if(!ret[props[i]])
+		 				return false;
+		 			ret = ret[props[i]];
+		 		}
+		 		if(value!==undefined)
+		 		{
+		 			if(!ret[props[props.length-1]])
+		 				return false;
+		 			ret[props[props.length-1]]=value;
+		 		}
+		 		else
+		 			return ret[props[props.length-1]];
 		 	}
 		};
 	    observer["core"]=obj;
