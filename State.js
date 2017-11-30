@@ -4,16 +4,11 @@
  * @license Copyright (c) 2017 Pronab Mukherjee, MIT License
  */
 
- class State{
-
+ class State
+ {
  	//"use strict"
-
- 	
-
  	// Takes normal JS Object as function argument.
  	// Returns observable Object.
- 	 
-
  	static create(obj)
  	{
  		// Handle special case if null or undefined is passed.
@@ -23,6 +18,7 @@
  		var observer = {
 
  			isLocked:false,
+ 			eventList:{},
  			lock:function()
 			{
 				if(!this.isLocked)
@@ -38,6 +34,7 @@
 		 	{
 		 		return this["core"];
 		 	},
+		 	// Appends property in the existing state (mutates the original state).
 		 	create:function(property,opt)
 		 	{
 		 		var ret = this["core"];
@@ -61,6 +58,7 @@
 		 		}
 
 		 	},
+		 	// Sets/Retrieves the value associated with the property.
 		 	prop:function(property,value)
 		 	{
 		 		var props = property.split(".");
@@ -79,42 +77,22 @@
 		 		}
 		 		else
 		 			return ret[props[props.length-1]];
+		 	},
+		 	on:function(propt,handle)
+		 	{
+		 		var obj = this;
+		 		this.eventList[propt]=handle;
+		 		var f = function(){
+		 			obj.off(propt);
+		 		}
+		 		return f;
+		 	},
+		 	off:function(propt)
+		 	{
+		 		this.eventList[propt]=false;
 		 	}
 		};
 	    observer["core"]=obj;
 	    return observer;
- 	}
-
- 	// Appends property in the existing state (mutates the original state).
- 	// Appends at param position.
- 	create(param,value)
- 	{
-
- 	}
- 	// Appends at Base Position.
- 	create(value)
- 	{
-
- 	}
-
- 	// Retrieves the value associated with the property.
- 	prop(param)
- 	{
-
- 	}
- 	// Sets the value associated with the property.
- 	prop(param,value)
- 	{
-
- 	}
-
- 	on(param,handle)
- 	{
-
- 	}
-
- 	next(param,handle)
- 	{
-
  	}
  }
