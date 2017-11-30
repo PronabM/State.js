@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Sample | State.js</title>
+		<style>
+
+			*{
+				margin:0px;
+				padding:0px;
+				vertical-align: middle;
+			}
+			html,body{
+				width:100vw;
+				height:100vh;
+				overflow: hidden;
+			}
+
+			.comment{
+				color:#AF7AA9;
+				font-size: 120%;
+			}
+			
+			#log{
+				width:60%;
+				color:#C262AC;
+			}
+			#input{
+				width:35%;
+				color: #92FBF0;
+			}
+			#log,#input{
+			  height: 100%;
+			  display:inline-block;	
+			  margin: 0;
+			  padding: 5px;
+			  list-style: none;
+			  background: #282828;
+			  
+			  font: 0.9em 'Andale Mono', Consolas, 'Courier New';
+			  line-height: 1.6em;
+			  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+			  padding: 8px 14px;	
+			  -webkit-border-bottom-right-radius: 3px;
+			  -webkit-border-bottom-left-radius: 3px;
+			  -moz-border-radius-bottomright: 3px;
+			  -moz-border-radius-bottomleft: 3px;
+			  border-bottom-right-radius: 3px;
+			  border-bottom-left-radius: 3px;
+			}
+
+		</style>
+	</head>
+	<body>	
+	<div id="input">
+		<span class="comment">// Input</span><br><br>
+		let myState = State.create({ <br>
+		    range: {<br>
+		        start: 1,<br>
+		        end: 5<br> 
+		    },<br>
+		    visible: true<br> 
+		});<br>
+		console.log(myState.getState());<br>
+		myState.create('range.type',<br>    {
+		    absolute: true<br>
+		});<br>
+		console.log(myState.getState());<br>
+		myState.create({ focus: null });<br>
+		console.log(myState.getState());<br>
+		console.log(myState.prop('range.type'));<br>
+		myState.prop('visible', false);<br>
+		console.log(myState.getState());<br>
+	</div>
+	
+	<div id="log">
+	<span class="comment">// Output</span><br><br>		
+	</div>
+	</body>
+	<script src="State.js"></script></script>
+	<script>
+		(function () {
+		    var old = console.log;
+		    var logger = document.getElementById('log');
+		    console.log = function (message) {
+		        if (typeof message == 'object') {
+		            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+		        } else {
+		            logger.innerHTML += message + '<br />';
+		        }
+		    }
+		})();
+
+		let myState = State.create({ 
+		    range: {
+		        start: 1,
+		        end: 5 
+		    },
+		    visible: true 
+		});
+		console.log(myState.getState());
+		myState.create('range.type',    {
+		    absolute: true
+		});
+		console.log(myState.getState());
+		myState.create({ focus: null });
+		console.log(myState.getState());
+		console.log(myState.prop('range.type'));
+		myState.prop('visible', false);
+		console.log(myState.getState());
+
+	</script>
+	</html>	
