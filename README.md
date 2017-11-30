@@ -15,7 +15,7 @@ Follow this step(s) to use the Library in your project.
 
 Include the following and this will include a global class State. 
 ```
-<script src="State.min.js"></script>
+<script src="State.js"></script>
 ```
 
 ## Built With
